@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  .container {
+  	display:flex;
+    flex-direction:row;
+    position:relative;
+    width:560px;
+    height:330px;
+    align-items:center;
+  }
+  .map {
+    	display:flex; 
+		flex-direction:row;
+		flex-wrap:wrap;
+		width:330px;
+		height:330px;
+		justify-content:space-between;
+        position:absolute;
+        top:0px;
+        left:130px;
+    }
+    .winnerContainer {
+    	background-color:white;
+        opacity:0.8;
+    	position:absolute;
+        width:270px;
+        height:270px;
+        z-index:1;
+        left:30px;
+        top:30px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:space-arround;
+    }
+  	.case {
+    	width:100px;
+        height:100px;
+    } 
+    .empty {background-color:grey; cursor:pointer}
+    .circle {background-color:red; border-radius:50%;}
+    .square {background-color:green}
+  </style>
+</head>
+<body>
+<h1>Tic Tac Toe with <span style="color:red">3x3</span> cases </h1>
+<div class="container">
+  <div style="width:130px;">
+  	Next player
+    <div class="case circle"></div>
+  </div>
+  <div class="map">
+    <div class="case empty"></div>
+    <div class="case circle"></div>
+    <div class="case square"></div>
+    <div class="case empty"></div>
+    <div class="case empty"></div>
+    <div class="case empty"></div>
+    <div class="case empty"></div>
+    <div class="case empty"></div>
+    <div class="case empty"></div>
+  </div>
+  <div class="winnerContainer" style="display:none">
+  	<span style="color:blue"><h4>The winner is </h4></span>
+    <div class="case circle"></div>
+  </div>
+</div>
+
+</body>
+</html>
