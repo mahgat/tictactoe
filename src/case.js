@@ -1,27 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {caseClick} from './actions'
-import {getCaseCssClass} from './util_cases'
 
-class Case extends React.Component {
+class Case extends React.Component {    
+    constructor(props){
+        super(props)
+        const {initial, caseSize,getCaseCssClass,onCaseClick} = props
+
+        this.state = {current:initial,caseSize,getCaseCssClass,onCaseClick}
+    }
     static propTypes = {
-        index:PropTypes.number.isRequired,
-        cases:PropTypes.array.isRequired,
+        initial:PropTypes.number.isRequired,
         caseSize:PropTypes.number.isRequired,
+        getCaseCssClass:PropTypes.func.isRequired,
         onCaseClick:PropTypes.func.isRequired
     }
     static defaultProps = {
+        initial:0,
         caseSize:100,
     }
 
     render() {
-        const {index,cases,caseSize,onCaseClick,nbCases,nextPlayer,winningCase} = this.props
-        return <div className={`case ${getCaseCssClass(cases[index])}`}
+        const {current,caseSize,getCaseCssClass,onCaseClick} = this.state
+        return <div className={`case ${getCaseCssClass(current)}`}
                     onClick = {()=>{
-                                        if (cases[index]===0) {
-                                            onCaseClick(index,cases,nbCases,nextPlayer,winningCase)
-                                        }
+                                        if (current==0) {
+                                            this.setState({current:onCaseClick()})
+                                        }                                       
                                     }}
                     style= {{width:`${caseSize}px`, height:`${caseSize}px`}}
                      >
@@ -29,25 +33,4 @@ class Case extends React.Component {
     }
 }
 
-const mapStateToProps = (state,ownProps) => (
-    {
-        index:ownProps.index,
-        cases:state.cases,
-        caseSize:state.caseSize,
-        nbCases:state.nbCases,
-        nextPlayer:state.nextPlayer,
-        winningCase:state.winningCase
-    }
-)
-
-const mapDispatchToProps = (dispatch) => (
-    {
-        onCaseClick: (index,cases,nbCases,nextPlayer,winningCase) =>
-         dispatch(caseClick(index,cases,nbCases,nextPlayer,winningCase))
-    }
-)
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Case);
+export default Case;
